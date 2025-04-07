@@ -1,0 +1,25 @@
+{
+  "name": "backendlab",
+  "version": "1.0.0",
+  "description": "",
+  "private": "true",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:gateway": "ts-node apps/api-getway/src/server.ts",
+    "start:auth": "ts-node apps/auth-service/src/server.ts",
+    "dev:gateway": "pnpm --filter api-getway run dev",
+    "dev:auth": "pnpm --filter auth-service run dev",
+    "dev:all": "concurrently \"pnpm run dev:gateway\" \"pnpm run dev:auth\""
+  },
+  "workspaces": [
+    "apps/*"
+  ],
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2"
+  }
+}

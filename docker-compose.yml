@@ -1,0 +1,25 @@
+version: "3.8"
+services:
+  api-getway:
+    build:
+      context: ./apps/api-getway/  # Ensure it points to the right directory
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./apps/api-getway/.env.docker
+    volumes:
+      - ./apps/api-getway:/app
+      - /app/node_modules
+    command: ["nodemon", "--legacy-watch", "src/server.ts"]
+
+  auth-service:
+    build:
+      context: ./apps/auth-service/  # Ensure it points to the right directory
+      dockerfile: Dockerfile
+    ports:
+      - "4100:4100"
+    volumes:
+      - ./apps/auth-service:/app
+      - /app/node_modules
+    command: ["nodemon", "--legacy-watch", "src/server.ts"]
