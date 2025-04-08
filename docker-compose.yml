@@ -1,5 +1,5 @@
-version: "3.8"
 services:
+
   api-getway:
     build:
       context: ./apps/api-getway/  # Ensure it points to the right directory
@@ -17,9 +17,27 @@ services:
     build:
       context: ./apps/auth-service/  # Ensure it points to the right directory
       dockerfile: Dockerfile
+    depends_on:
+      - mongodb
     ports:
       - "4100:4100"
+    env_file:
+      - ./apps/auth-service/.env.docker
     volumes:
       - ./apps/auth-service:/app
       - /app/node_modules
     command: ["nodemon", "--legacy-watch", "src/server.ts"]
+  mongodb:
+    image: mongo:6.0
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    volumes:
+      - mongodb_data:/data/db
+
+volumes:
+  mongodb_data:
