@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import authRoutes from './Routes/auth.router';
 import { exceptionHandler } from './shared/GlobalErrorHandler';
 import { connectDB } from './db/moongooseDBConnect';
+import cookieParser from 'cookie-parser';
 //FOR ACCESSING THE DOTENV VARIABLES
 config()
 
@@ -12,9 +13,14 @@ config()
 const app = express();
 //For request Object enable
 app.use(express.json());
+//for accepting the form data
+app.use(express.urlencoded({extended:true}))
+//FOR COOKIE PARSING
+app.use(cookieParser());
+
+
 //LOGGING
 app.use(morgan('combined'))
-
 app.listen(processEnv.port,(err:any)=>{
     if(err)console.log("error starting the server",err)
     console.log("server started at port",processEnv.port);

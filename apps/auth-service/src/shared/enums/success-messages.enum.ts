@@ -5,12 +5,17 @@ export enum SuccessMessages {
     DeleteSuccess = 'Resource deleted successfully',
     GenericSuccess = 'Operation completed successfully',
     UserRemoveSuccess = 'User removed!',
-    ProductRemoveSuccess = 'Product removed!'
+    ProductRemoveSuccess = 'Product removed!',
+    SEEConnectedSuccess = 'SEE has been connected successfully'
   }
 export enum HTTPAuthSuccessMessages{
   CreateSuccess = 'User created successfully',
+  SignInSuccess = 'User signed in successfully',
+  SignOutSucess = 'User signed out successfully',
   GetSuccess = 'User retrieved successfully',
   UpdateSuccess = 'User updated successfully',
   DeleteSuccess = 'User deleted successfully',
   GenericSuccess = 'User operation completed successfully',
 }
+
+

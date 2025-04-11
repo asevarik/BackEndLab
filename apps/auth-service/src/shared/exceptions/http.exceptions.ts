@@ -11,11 +11,16 @@ export class BadRequestException {
   }
 }
 
-export class UnauthorizedException {
+export class UnauthorizedException extends createError.Unauthorized{
+  public data?: any;
+
   constructor(message = HTTPMessages.UNAUTHORIZED, data?: any) {
-    const error = createError(HTTPStatusCode.Unauthorized, message) as any;
-    if (data) error.data = data;
-    throw error;
+    super(message);
+    this.data = data;
+
+    // Fix prototype chain to allow instanceof to work
+    Object.setPrototypeOf(this, UnauthorizedException.prototype);
+    
   }
 }
 

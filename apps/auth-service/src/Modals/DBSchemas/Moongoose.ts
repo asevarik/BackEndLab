@@ -1,7 +1,10 @@
 import mongoose,{Schema,Document} from "mongoose";
 import { UserObject } from "../zod/User";
+import { ROLES } from "../../shared/utils/constants";
 
-export interface IUser extends Document,UserObject{}
+export interface IUser extends Document,UserObject{
+  roles?:string[]
+}
 
 const UserSchema:Schema<IUser> = new Schema({
     username: {
@@ -27,6 +30,11 @@ const UserSchema:Schema<IUser> = new Schema({
         required: [true, 'password is required'],
         minlength: [5, 'Password must be at least 5 characters'],
       },
+      roles:{
+        type: [String],
+        enum: Object.values(ROLES),
+        default: [ROLES.USER],
+      }
     }
 ,{timestamps:true})
 
