@@ -48,7 +48,7 @@ export const userSignInController = async (
     const userDTO = req.body;
     const user = await signInUser(userDTO);
     //Generating the fresh jwt and setting it in the cookie of the client
-    generateTokenAndSetCookie(
+  await  generateTokenAndSetCookie(
       { isUserSignedIn: true, userId:user._id,roles:user.roles },
       res,
      {
@@ -59,14 +59,15 @@ export const userSignInController = async (
     );
     
     //CREATING A REFRESH TOKEN
-    generateTokenAndSetCookie({ isUserSignedIn: true, userId:user._id }, res, {
+   await generateTokenAndSetCookie({ isUserSignedIn: true, userId:user._id }, res, {
         cookieName: COOKIE_NAMES.REFRESH_TOKEN,
         maxAge: COOKIE_TIME.FIFTEEN_DAYS,
         expiresIn: COOKIE_TIME.FIFTEEN_DAYS,
       });
     //Notifying the Admin to see that the user has been Logged  in real time
-    sseStore.addClient(user._id as string,res)
-    sseStore.broadcast({message:"new client has logged In"},SSEEventType.USER_SIGNED_IN)
+      await sseStore.addClient(user._id as string,res)
+      //TODO: make a workaround for this broadcast
+      // await  sseStore.broadcast({message:"new client has logged In"},SSEEventType.USER_SIGNED_IN)
     
     SuccessResponse.ok(res, userDTO, HTTPAuthSuccessMessages.SignInSuccess);
   } catch (err) {

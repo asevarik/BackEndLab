@@ -3,6 +3,7 @@ import { sanatizeUserModelMiddleware, sanatizeUserSignInModelMiddleware } from "
 import { getAllUsersController, userLogoutController, userRegistrationController, userSignInController } from "../controllers/auth.controller";
 import { authMiddleware, authorizeRole } from "../Middlewares/authMiddleware";
 import { ROLES } from "../shared/utils/constants";
+import { sseMetricsController } from "../controllers/sse.controller";
 
 const authRoutes = Router();
 
@@ -14,6 +15,6 @@ authRoutes.post('/signout',userLogoutController)
 
 authRoutes.get('/users',authMiddleware,authorizeRole(ROLES.ADMIN,ROLES.SUPER_ADMIN),getAllUsersController)
 
-authRoutes.get('/sse/admin/metrics',authMiddleware,authorizeRole(ROLES.SUPER_ADMIN),)
+authRoutes.get('/sse/admin/metrics',authMiddleware,authorizeRole(ROLES.SUPER_ADMIN),sseMetricsController)
 
 export default authRoutes;
