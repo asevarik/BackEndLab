@@ -32,7 +32,7 @@ export const userRegistrationController = async (
     //Notifying the Admin to see that the user has been registered in real time
     sseStore.broadcast({message:"new client has been connected"},SSEEventType.USER_REGISTERED)
     
-    SuccessResponse.created(res, user, HTTPAuthSuccessMessages.CreateSuccess);
+    SuccessResponse.ok(res, user, HTTPAuthSuccessMessages.CreateSuccess);
   } catch (err) {
     //For Global Error handling
     next(err);

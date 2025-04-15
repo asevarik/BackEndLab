@@ -6,6 +6,8 @@ import authRoutes from './Routes/auth.router';
 import { exceptionHandler } from './shared/GlobalErrorHandler';
 import { connectDB } from './db/moongooseDBConnect';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+
 //FOR ACCESSING THE DOTENV VARIABLES
 config()
 

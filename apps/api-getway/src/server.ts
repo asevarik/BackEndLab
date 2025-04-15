@@ -10,12 +10,12 @@ config()
 
 //STARTING THE SERVER
 const app = express();
-
-//LOGGING
-app.use(morgan('combined'))
 //HELMET AND CORS
 app.use(helmet())
-app.use(cors({origin:"*"}))
+app.use(cors({origin:"http://localhost:5173",credentials:true}))
+//LOGGING
+app.use(morgan('combined'))
+
 app.listen(processEnv.port,(err:any)=>{
     if(err)console.log("error starting the server",err)
     console.log("server started at port",processEnv.port);
